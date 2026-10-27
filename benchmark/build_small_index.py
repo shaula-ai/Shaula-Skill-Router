@@ -4,7 +4,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 from sentence_transformers import SentenceTransformer
-from clibrary_hub.build_index import load_manifests, build_indices
+from shaula.router.build_index import load_manifests, build_indices
 import faiss
 
 def main():

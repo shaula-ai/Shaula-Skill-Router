@@ -9,8 +9,8 @@ multilingual-e5-base, and writes three FAISS index files:
   example_index.faiss — one vector per example query (Path A/B split)
 
 Usage:
-    python -m clibrary.build_index --manifest-dir ./manifests
-    python -m clibrary.build_index --manifest-dir ./manifests --output-dir ./indices
+    python -m shaula.router.build_index --manifest-dir ./manifests
+    python -m shaula.router.build_index --manifest-dir ./manifests --output-dir ./indices
 """
 
 from __future__ import annotations
@@ -153,9 +153,9 @@ def main(argv: list[str] | None = None) -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python -m clibrary.build_index --manifest-dir ./manifests
-  python -m clibrary.build_index --manifest-dir ./manifests --output-dir ./my_indices
-  clibrary-build-index --manifest-dir ./manifests
+  python -m shaula.router.build_index --manifest-dir ./manifests
+  python -m shaula.router.build_index --manifest-dir ./manifests --output-dir ./my_indices
+  shaula-build-index --manifest-dir ./manifests
         """,
     )
     parser.add_argument(

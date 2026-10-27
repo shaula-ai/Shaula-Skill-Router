@@ -49,7 +49,7 @@ class CLIbrary:
     ----------
     index_dir : str | Path | None
         Directory containing FAISS indices and metadata JSON files.
-        Defaults to the bundled index shipped with the package.
+        Defaults to ~/.clibrary/indices, shared with shaula-build-index.
     model_name : str
         Sentence-Transformers model for encoding queries.
     cli_top_k : int
@@ -78,7 +78,7 @@ class CLIbrary:
         rerank_alpha: float = _DEFAULT_RERANK_ALPHA,
         reranker: Any = None,
     ) -> None:
-        self._index_dir = Path(index_dir) if index_dir else Path(__file__).parent / "indices"
+        self._index_dir = Path(index_dir) if index_dir else Path.home() / ".clibrary" / "indices"
         self._model_name = model_name
         self._cli_top_k = cli_top_k
         self._example_threshold = example_threshold
@@ -108,7 +108,7 @@ class CLIbrary:
         if not (idx / "cli_index.faiss").exists():
             raise RuntimeError(
                 f"Index not found at {idx}. "
-                "Run `python -m clibrary.build_index` to build indices first."
+                "Run `python -m shaula.router.build_index` to build indices first."
             )
 
         self._model = SentenceTransformer(self._model_name)

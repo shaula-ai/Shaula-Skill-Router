@@ -1,4 +1,4 @@
-# FAISS indices (rebuild locally with clibrary-build-index)
+# FAISS indices (rebuild locally with shaula-build-index)
 *.faiss
 cli_meta.json
 trigger_meta.json

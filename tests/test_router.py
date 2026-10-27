@@ -13,7 +13,7 @@ from unittest.mock import MagicMock, patch
 import numpy as np
 import pytest
 
-from clibrary.manifest import load_manifest, validate_manifest, ManifestError
+from shaula.router.manifest import load_manifest, validate_manifest, ManifestError
 
 
 # ── Manifest tests ─────────────────────────────────────────────────────────────
@@ -67,7 +67,7 @@ def test_load_manifest_file_not_found():
 
 def _make_mock_router():
     """Build a CLIbrary instance with all FAISS/model state mocked out."""
-    from clibrary.router import CLIbrary
+    from shaula.router.router import CLIbrary
 
     router = CLIbrary.__new__(CLIbrary)
     router._index_dir = None
@@ -78,6 +78,7 @@ def _make_mock_router():
     router._clarify_min_gap = 0.010
     router._rerank_alpha = 0.7
     router._llm_backend = None
+    router._reranker = None
 
     # Minimal mock state
     router._model = MagicMock()

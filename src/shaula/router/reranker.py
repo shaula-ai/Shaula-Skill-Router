@@ -6,7 +6,7 @@ Qwen3-Reranker outputs logits for token "yes" (9693) vs "no" (2152); the
 softmax probability of "yes" is used as the relevance score.
 
 Usage:
-    from clibrary_hub.reranker import Qwen3Reranker
+    from shaula.router.reranker import Qwen3Reranker
     reranker = Qwen3Reranker()
     scores = reranker.score(query, candidates)  # list of floats, same order as candidates
 """

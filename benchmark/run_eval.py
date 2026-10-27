@@ -13,7 +13,7 @@ import argparse, json, time
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-from clibrary_hub.router import CLIbrary
+from shaula.router.router import CLIbrary
 
 
 def load_eval(eval_dir: Path, allowed_clis: set[str] | None = None) -> list[dict]:

@@ -1,10 +1,10 @@
-# CLIbrary-Hub
+# Shaula Skill Router
 
 > Production-grade tool routing for AI agents.
 
-`pip install clibrary-hub` · The official Python package for the CLIbrary tool registry.
+`pip install shaula-skill-router` · The official Python package for the CLIbrary tool registry.
 
-[![PyPI](https://img.shields.io/pypi/v/clibrary-hub.svg)](https://pypi.org/project/clibrary-hub/)
+[![PyPI](https://img.shields.io/pypi/v/shaula-skill-router.svg)](https://pypi.org/project/shaula-skill-router/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
 
@@ -23,17 +23,17 @@ When you scale beyond 50 tools, current systems break down.
 
 ---
 
-## How CLIbrary-Hub Works
+## How Shaula Skill Router Works
 
-CLIbrary-Hub uses a two-stage retrieval architecture to route agent intents to the right tool in ~36ms using only ~150 tokens.
+Shaula Skill Router uses a two-stage retrieval architecture to route agent intents to the right tool in ~36ms using only ~150 tokens.
 
 ```
 Traditional approach:
   Agent intent → Stuff all 500 tools into LLM → LLM picks
   ~50,000 tokens, ~3 seconds, ~70% accuracy
 
-CLIbrary-Hub approach:
-  Agent intent → CLIbrary-Hub router → Single tool + params
+Shaula Skill Router approach:
+  Agent intent → Shaula Skill Router router → Single tool + params
   ~150 tokens, ~36ms, ~93% top-3 accuracy
 ```
 
@@ -73,20 +73,24 @@ MaxSim re-rank  (combined = 0.7×mean_sim + 0.3×max_sim)
 ### Install
 
 ```bash
-pip install clibrary-hub
+pip install shaula-skill-router
 ```
+
+This checkout prepares the namespace release; install locally with `pip install .` until the new distribution is published.
+
+`shaula` is a shared PEP 420 namespace. This distribution provides `shaula.router` and can coexist with `shaula.core` and future `shaula.maker`; do not add `src/shaula/__init__.py`.
 
 ### Build the FAISS indices from your manifests
 
 ```bash
-clibrary-build-index --manifest-dir ./manifests
+shaula-build-index --manifest-dir ./manifests
 # Indices written to ~/.clibrary/indices by default
 ```
 
 ### Route an intent
 
 ```python
-from clibrary_hub import router
+from shaula import router
 
 result = router.route("幫我查上週銷售總額")
 ```
@@ -94,12 +98,12 @@ result = router.route("幫我查上週銷售總額")
 When example similarity is high (≥0.85, "Path A"), the router fills the
 template directly. Otherwise it returns `params: {}` and a `source: "B"`
 flag — your code decides how to fill those (you can plug in any LLM you
-want; the package itself makes **no external API calls**).
+want). Initial embedding-model loading may download model weights; routing runs locally once weights are cached.
 
 ### Validate a manifest
 
 ```python
-from clibrary_hub import validator
+from shaula.router import validator
 
 r = validator.validate_file("manifests/data/sql-runner.json")
 if not r.ok:
@@ -193,10 +197,10 @@ Each CLI tool has a `manifest.json` describing its purpose, inputs, and examples
 
 ```
 CLIbrary/
-├── src/clibrary_hub/
+├── src/shaula/router/
 │   ├── __init__.py
 │   ├── router.py          # Core routing logic
-│   ├── build_index.py     # FAISS index builder (clibrary-build-index)
+│   ├── build_index.py     # FAISS index builder (shaula-build-index)
 │   ├── manifest.py        # Manifest loader / validator
 │   ├── matchers/
 │   └── utils/
@@ -236,7 +240,7 @@ CLIbrary complements MCP: CLIbrary handles routing, MCP handles protocol.
 - ✅ 500 CLI manifests (8 categories)
 - ✅ Reference router implementation (FAISS, multilingual-e5-base)
 - ✅ Evaluation dataset (2,050 queries)
-- ✅ pip package — `pip install clibrary-hub`
+- ✅ pip package — `pip install shaula-skill-router`
 
 ---
 
@@ -248,6 +252,6 @@ MIT License — free to use, including for commercial purposes.
 
 ## Links
 
-- PyPI: https://pypi.org/project/clibrary-hub/
-- GitHub: https://github.com/clibrary-hub/CLIbrary
+- PyPI: https://pypi.org/project/shaula-skill-router/
+- GitHub: https://github.com/shaula-ai/Shaula-Skill-Router
 - Tools registry: https://github.com/clibrary-hub/cli-tools

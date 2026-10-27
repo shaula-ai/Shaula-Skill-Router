@@ -3,7 +3,7 @@ validator.py — Validate CLIbrary manifest.json files against the schema.
 
 Usage::
 
-    from clibrary_hub import validator
+    from shaula.router import validator
 
     # 1) Validate a dict you already loaded
     result = validator.validate(manifest_dict)
